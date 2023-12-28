@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gitstats</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            margin-top: 1rem;
+            --bs-gutter-x: 1.5rem;
+            --bs-gutter-y: 0;
+            width: 70%;
+            padding-right: calc(var(--bs-gutter-x) * .5);
+            padding-left: calc(var(--bs-gutter-x) * .5);
+            margin-right: 15%;
+            margin-left: 15%;
+        }
+
+        .flex-row {
+            flex-direction: row!important;
+        }
+
+        .d-flex {
+            display: flex!important;
+        }
+
+        .row {
+            --bs-gutter-x: 1.5rem;
+            --bs-gutter-y: 0;
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: calc(-1 * var(--bs-gutter-y));
+            margin-right: calc(-.5 * var(--bs-gutter-x));
+            margin-left: calc(-.5 * var(--bs-gutter-x));
+        }
+
+        .col-md-10 {
+            flex: 0 0 auto;
+            width: 83.33333333%;
+        }
+
+
+        .col-md-2 {
+            flex: 0 0 auto;
+            width: 16.66666667%;
+        }
+
+
+        .form-control {
+            display: block;
+            width: 100%;
+            padding: 0.375rem 0.75rem;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #212529;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #ced4da;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            border-radius: 0.375rem;
+            transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+        }
+
+
+        button, input {
+            margin: 0;
+            font-family: inherit;
+            font-size: inherit;
+            line-height: inherit;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-bottom: 0;
+            font-weight: 400;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            -ms-touch-action: manipulation;
+            touch-action: manipulation;
+            cursor: pointer;
+            background-image: none;
+            border: 1px solid transparent;
+            padding: 6px 12px;
+            font-size: 14px;
+            line-height: 1.42857143;
+            border-radius: 4px;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .btn-default {
+            color: #333;
+            background-color: #fff;
+            border-color: #ccc;
+        }
+
+        .btn-primary {
+            color: #fff;
+            background-color: #337ab7;
+            border-color: #2e6da4;
+        }
+
+        a {
+            color: #0ad;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .result {
+            margin-top: 2rem;
+            display: none;
+        }
+
+
+
+
+
+
+
+
+
+
+        body .layer-ext-moon[type="dialog"] {
+            min-width: 320px;
+        }
+        .layer-dialog {
+            min-width: 300px;
+        }
+        .layer {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+            -webkit-background-clip: content;
+            border-radius: 2px;
+            box-shadow: 1px 1px 50px rgba(0,0,0,.3);
+        }
+
+        body .layer-ext-moon .layer-title {
+            background: #F8F8F8;
+            color: #333;
+            font-size: 14px;
+            height: 42px;
+            line-height: 42px;
+            border: none;
+        }
+        .layer-title {
+            padding: 0 80px 0 20px;
+            height: 50px;
+            line-height: 50px;
+            border-bottom: 1px solid #F0F0F0;
+            font-size: 14px;
+            color: #333;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            border-radius: 2px 2px 0 0;
+        }
+
+        body .layer-ext-moon .layer-padding {
+            padding-top: 24px;
+        }
+        .layer-dialog .layer-padding {
+            padding: 20px 20px 20px 55px;
+            text-align: left;
+        }
+        .layer-dialog .layer-content {
+            position: relative;
+            padding: 20px;
+            line-height: 24px;
+            word-break: break-all;
+            overflow: hidden;
+            font-size: 14px;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+        .layer-content {
+            position: relative;
+        }
+
+
+        body .layer-ext-moon .layer-setwin {
+            top: 15px;
+            right: 15px;
+        }
+
+        .layer-setwin {
+            position: absolute;
+            right: 15px;
+            *right: 0;
+            top: 17px;
+            font-size: 0;
+            line-height: initial;
+        }
+
+
+        body .layer-ext-moon .layer-setwin a {
+            width: 16px;
+            height: 16px;
+        }
+
+
+        body .layer-ext-moon .layer-btn {
+            text-align: right;
+            padding: 10px 15px 12px;
+            background: #f0f4f7;
+            border-top: 1px #c7c7c7 solid;
+        }
+
+        .layer-btn {
+            text-align: right;
+            padding: 0 15px 12px;
+            pointer-events: auto;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+
+        * {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+
+
+    </style>
+
+</head>
+<body>
+
+
+
+<div class="container">
+    <div class="d-flex flex-row">
+        <div>
+            <img src="data:image/png;base64,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" >
+        </div>
+        <div style="margin-left: 3rem;">
+            <h1 itemprop="name">GitStats</h1>
+            <div class="d-flex flex-row">
+                <div style="margin-right: 2rem;">Status: <span style="color: #fc0;box-sizing: inherit;">Beta</span></div>
+                Brought to you by: <a href="https://github.com/hoxu/gitstats" target="_blank">hoxu</a>
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-top: 5rem;">
+        <div class="row">
+            <div class="col-md-10">
+                <input type="text" id="git" class="form-control" placeholder="git address" value="http://him-dev.myds.me:9999/cpl/cpl-server.git" required autofocus>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-xs btn-primary btn-block" type="submit" id="submit" style="margin-left: 2rem;">提交</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="result">
+        <a id="result" href="" target="_blank">分析成功，跳转中...</a>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+<div id="alert" style="display:none;" class="layer layer-dialog layer-ext-moon" type="dialog">
+    <div class="layer-title" style="cursor: move;">系统提示</div>
+    <div class="layer-content layer-padding">
+        <span id="content">?</span>
+    </div>
+    <span class="layer-setwin">
+        <a class="layer-ico layer-close layer-close1" href="javascript:;">x</a>
+    </span>
+    <div class="layer-btn">
+        <a class="btn btn-default" onclick="closeAlert()">关闭</a>
+    </div>
+</div>
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+
+
+    let url = 'http://10.1.1.15:19877/'
+
+    // 隐藏提示框
+    $('#dialog').hide();
+
+
+    $('#submit').bind('click', function () {
+        $('.result').hide()
+
+        var git = $('#git').val();
+        if (!git) {
+            failure('error')
+            return;
+        }
+
+        $.get(url + 'gitstats', {git: git}, function (data) {
+            console.log(data);
+            if (!data) {
+                failure('error')
+                return
+            }
+            if (data.code !== 0) {
+                failure(data.msg)
+                return
+            }
+            $('#result').attr('href', data.data)
+            $('.result').show()
+            setTimeout(() => {
+                window.open(data.data, '_blank');
+            }, 2000)
+        });
+
+    });
+
+    function success(content) {
+        alert('操作成功', content)
+        setTimeout(() => {closeAlert()}, 2000)
+    }
+
+    function failure(content) {
+        alert('操作失败', content)
+    }
+
+    function alert(title, content) {
+        $('#title').html(title)
+        $('#content').html(content)
+        $('#alert').show()
+    }
+
+    function closeAlert() {
+        $('#alert').hide()
+    }
+
+</script>
+
+</body>
+</html>
